@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -59,6 +60,14 @@ public class Produto implements Serializable {
     @JoinColumn(name = "marca", referencedColumnName = "id", nullable = false)    
     @ForeignKey(name = "fk_marca")
     private Marca marca;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "desejos",
+            joinColumns = 
+            @JoinColumn(name = "produto", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = 
+            @JoinColumn(name = "pessoa_fisica", referencedColumnName = "id", nullable = false), 
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"pessoa_fisica","produto"})})    
+    private List<PessoaFisica> desejam = new ArrayList<>();
 
     public Produto() {
     }
@@ -148,6 +157,14 @@ public class Produto implements Serializable {
     public String toString() {
         return  nome;
     }  
+
+    public List<PessoaFisica> getDesejam() {
+        return desejam;
+    }
+
+    public void setDesejam(List<PessoaFisica> desejam) {
+        this.desejam = desejam;
+    }
 
 
 
