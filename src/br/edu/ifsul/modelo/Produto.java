@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -68,9 +70,33 @@ public class Produto implements Serializable {
             @JoinColumn(name = "pessoa_fisica", referencedColumnName = "id", nullable = false), 
             uniqueConstraints = {@UniqueConstraint(columnNames = {"pessoa_fisica","produto"})})    
     private List<PessoaFisica> desejam = new ArrayList<>();
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, 
+            orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Foto> fotos = new ArrayList<>();
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, 
+            orphanRemoval = true, fetch = FetchType.LAZY)    
+    private List<Arquivo> arquivos = new ArrayList<>();
 
     public Produto() {
     }
+    
+    public void adicionarFoto(Foto obj){
+        obj.setProduto(this);
+        this.fotos.add(obj);
+    }
+    
+    public void removerFoto(int index){
+        this.fotos.remove(index);
+    }
+    
+    public void adicionarArquivo(Arquivo obj){
+        obj.setProduto(this);
+        this.arquivos.add(obj);
+    }
+    
+    public void removerArquivo(int index){
+        this.arquivos.remove(index);
+    }    
 
     public Integer getId() {
         return id;
@@ -164,6 +190,22 @@ public class Produto implements Serializable {
 
     public void setDesejam(List<PessoaFisica> desejam) {
         this.desejam = desejam;
+    }
+
+    public List<Foto> getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(List<Foto> fotos) {
+        this.fotos = fotos;
+    }
+
+    public List<Arquivo> getArquivos() {
+        return arquivos;
+    }
+
+    public void setArquivos(List<Arquivo> arquivos) {
+        this.arquivos = arquivos;
     }
 
 
