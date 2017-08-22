@@ -1,6 +1,7 @@
 package br.edu.ifsul.testes.junit;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
+import br.edu.ifsul.modelo.Cidade;
 import br.edu.ifsul.modelo.Endereco;
 import br.edu.ifsul.modelo.PessoaFisica;
 import br.edu.ifsul.modelo.TipoEndereco;
@@ -46,6 +47,7 @@ public class TestePersistirEndereco {
             e.setNumero("459");
             e.setReferencia("Perto mercado");
             e.setTipoEndereco(em.find(TipoEndereco.class, 1));
+            e.setCidade(em.find(Cidade.class, 1));
             pf.adicionarEndereco(e);
             em.getTransaction().begin();
             em.persist(pf);
