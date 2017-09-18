@@ -41,7 +41,7 @@ public class TestePersistirProduto {
             Marca m = new Marca();
             m.setNome("Samsung");
             Produto p = new Produto();
-            p.setNome("Monitor Samsung 15");
+            p.setNome("Monitor Samsung 23");
             p.setCategoria(c);
             p.setMarca(m);
             p.setDescricao("blablabla");
