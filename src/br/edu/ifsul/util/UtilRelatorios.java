@@ -1,7 +1,10 @@
 package br.edu.ifsul.util;
 
 import br.edu.ifsul.modelo.Categoria;
+import br.edu.ifsul.modelo.Cidade;
+import br.edu.ifsul.modelo.Endereco;
 import br.edu.ifsul.modelo.Marca;
+import br.edu.ifsul.modelo.PessoaFisica;
 import br.edu.ifsul.modelo.Produto;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,34 @@ public class UtilRelatorios {
         lista.add(p1);
         lista.add(p2);
         lista.add(p3);
+        return lista;
+    }
+    
+    public static List<PessoaFisica> listaPessoas(){
+        List<PessoaFisica> lista = new ArrayList<>();
+        PessoaFisica pf = new PessoaFisica();
+        pf.setNome("Jorge Bavaresco");
+        pf.setEmail("jorge.bavaresco@passofundo.ifsul.edu.br");
+        pf.setTelefone("(54)9984-5983");
+        pf.setRg("9847593043");
+        pf.setCpf("984.384.234-98");
+        Endereco e = new Endereco();
+        e.setEndereco("Av Brasil");
+        e.setNumero("4598");
+        e.setComplemento("AP 407");
+        e.setBairro("Centro");
+        e.setCep("98756-988");
+        Cidade c = new Cidade();
+        c.setNome("Passo Fundo");
+        e.setCidade(c);
+        pf.adicionarEndereco(e);
+        Produto p1 = new Produto();
+        p1.setNome("Mouse Sem Fio");
+        Produto p2 = new Produto();
+        p2.setNome("Teclado sem fio");
+        pf.getDesejos().add(p1);
+        pf.getDesejos().add(p2);
+        lista.add(pf);
         return lista;
     }
 
